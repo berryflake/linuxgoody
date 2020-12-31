@@ -1,7 +1,7 @@
 #!/bin/bash
 # This script fixes the caps lock delay
 # Symptom: IF You SEeing THis while you're typing, THen THis is for you.
-# This is a known issue, and yet to be fixed, occurrent on most ubuntu/ubuntu-based distro.
+# This is a known issue, and yet to be fixed, occurrent on most ubuntu / ubuntu-based distro.
 # Tow way to fix it, one, try to change your way of typing, try using shift instead of using caps lock.
 # Second way, run this script on startup.
 
