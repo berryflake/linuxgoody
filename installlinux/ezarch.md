@@ -266,7 +266,6 @@ UUID=0a44n5no3-29cnw-2234-c298-shdi92103t7
 ## 14) Chrooting
 ```
 arch-chroot /mnt /bin/bash
-exit
 ```
 
 -[Readmore](https://wiki.archlinux.org/index.php/Chroot) About Chroot.
