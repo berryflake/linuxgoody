@@ -1,5 +1,5 @@
 # Yuo're in scripts folder
-### All the scripts should be clearly labeled.
+### All the scripts should be nclearly labeled.
 
 - Every script should have an unambiguous description.
 - I'll try to explain as detail as I can. Both for you and future me.
