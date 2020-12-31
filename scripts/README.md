@@ -1,4 +1,4 @@
-# Yuo're in scripts deparment
+# Yuo're in scripts folder
 ## All the scripts should be clearly labeled.
 
 - Every script should have an unambiguous description.
