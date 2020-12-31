@@ -1,0 +1,17 @@
+#!/usr/bin/env
+# This script can create .desktop file that should be run from the shell.
+# YOu need to change the detail.
+
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=your_app_name
+GenericName=Root_name
+Comment=about your app
+Categories=tpye;type;
+Exec=/path/to/executable
+Icon=/path/to/icon
+
+
+# sh file
+sudo mv ~/.local/share/applications/your_app_name.desktop /usr/share/applications/
