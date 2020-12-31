@@ -341,6 +341,11 @@ ln -sf /sur/share/zoneinfo/
 ln -sf /sur/share/zoneinfo/PRC /etc/localtime
 ```
 
+## 23) Exit chroot
+```
+exit
+``` 
+
 ### You are done!
 #### Now you can install neofetch. ```pacman -S neofetch && neofetch```
 There is more you can do after installing the base system, installing a desktop environment, office suite, etc.
