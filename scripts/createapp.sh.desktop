@@ -11,7 +11,7 @@ Comment=about your app
 Categories=tpye;type;
 Exec=/path/to/executable
 Icon=/path/to/icon
-
+Terminal=false
 
 # sh file
 sudo mv ~/.local/share/applications/your_app_name.desktop /usr/share/applications/
