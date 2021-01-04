@@ -1,0 +1,3 @@
+# To test mounting, run 'mount -a'
+# This script helps mount network drive (NAS drive) to local directory
+# Adding the script to 'fstab' to make it auto mount during system boot.
