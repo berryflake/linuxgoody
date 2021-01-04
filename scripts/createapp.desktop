@@ -1,8 +1,7 @@
 #!/usr/bin/env
 # This script can create .desktop file that should be run from the shell.
 # YOu need to change the detail.
-
-# DO NOT USE IT YET, NOT YET DONE!
+# running './createapp.desktop --register-app' to add shortcut?
 
 [Desktop Entry]
 Type=Application
@@ -14,6 +13,3 @@ Categories=tpye;type;
 Exec=/path/to/executable
 Icon=/path/to/icon
 Terminal=false
-
-# sh file
-sudo mv ~/.local/share/applications/your_app_name.desktop /usr/share/applications/
