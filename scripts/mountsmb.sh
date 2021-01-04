@@ -43,7 +43,7 @@ do
         do
         	read -r -p "Input your naming : " LCDIR
         	read -r -p "Your naming is: " $LCDIR "Are you sure? [Yes / No ] " YN_LCDIR
-        	# more later.... is 6am.... god loard!!!
+        	# more later.... is 6am.... god lord *damn*!!!
         break
         ;;
         *)
