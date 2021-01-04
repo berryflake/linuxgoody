@@ -6,7 +6,15 @@
 # Run this script as root, or sudo?(not sure will need testing), for now, use root user.
 # Version 0.1 alpha
 
-# NOT YET FINISHED , DO NOT USE IT.
+# Set vars
+LCDIR      # local directory
+UID        # user id
+RMIP       # remote ip
+RMDIR      # remote directory
+RMUSR      # remote username
+RMPASSWD   # remote password
+
+# idea: user input var, auto gen command and added to fstab
 
 if [ $(whoami) != 'root' ]
 then
