@@ -25,16 +25,16 @@ id
 - If you have multiple users on the system, then check by the ```(user_name)```.
 
 ### 4) Manually mount the drive
--Change ```remotename``` to your connection username.
--Change ```remotepassword``` to your connection password.
--Change ```127.0.0.1/remotedirectory``` to your NAS's ip and directory that you wish to mount.
--Change ```mountpoint``` to your mountpoint folder name.
+- Change ```remotename``` to your connection username.
+- Change ```remotepassword``` to your connection password.
+- Change ```127.0.0.1/remotedirectory``` to your NAS's ip and directory that you wish to mount.
+- Change ```mountpoint``` to your mountpoint folder name.
 
 ```
 sudo mount -t cifs -o username=remotename,password=remotepassword //127.0.0.1/remotedirectory ~/mountpoint
 ```
-[mount](#) -t option meaning...
-[cifs](#) -o option meaning...
+- [mount](#) -t option meaning...
+- [cifs](#) -o option meaning...
 
 ### 5) 
 
