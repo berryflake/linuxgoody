@@ -32,7 +32,7 @@ ping archlinux.org
 
 ### 2.2) WLAN
 I'm not yet tested on a physical machine, please refer to the official document [HERE](https://wiki.archlinux.org/index.php/Iwctl#iwctl)
-- Following comman is from the offical document.
+- Following command is from the offical document.
 
 - Enter wireless daemon
 ```
