@@ -41,8 +41,7 @@ sudo mount -t cifs -o username=remotename,password=remotepassword,uid=1000 //127
 - [[mount]](https://www.computerhope.com/unix/umount.htm) **-t** Mount type e.g. ```cifs```
 - [[cifs]](https://linux.die.net/man/8/mount.cifs) **-o** optional parameters e.g. ```username``` (smb file system), ```password```
 - If your remote directory has space between the naming, add single quote ```''``` to the command e.g. ```... //127.0.0.1/'remote directory' ...```
-- If your smb password has special characters e.g. ```#$^&*()!',.``` then the connection will fail, one of the solution is use ```credentials``` file. (will be mentioned later on)
-- ```~/``` To your home directory.
+- If your smb password has special characters e.g. ```#$^&*!',.``` then the connection will fail, one of the solution is use ```credentials``` file. (will be mentioned later on)
 
 #### 4.1) Mount check
 - After you hit enter, check if the mount was successful.
