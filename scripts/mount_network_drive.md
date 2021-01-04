@@ -1,7 +1,7 @@
 # Mount network drive guide
-### Mounting Network or NAS Drive to local directory.
-### Adding auto mount during boot by ```fstab```
-- This tutorial is from [SpaceRex](https://youtu.be/RIS482WvbM4) , If you like video walkthrough, go check out his video.
+#### Mounting Network or NAS Drive to local directory.
+#### Adding auto mount during boot by ```fstab```
+#### This tutorial is made from [SpaceRex](https://youtu.be/RIS482WvbM4) , If you like a video walkthrough, go check out his video.
 
 ### 1) Install cifs-utils
 ```
