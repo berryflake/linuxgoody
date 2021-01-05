@@ -4,9 +4,10 @@
 # The guide link https://github.com/berryflake/linuxgoody/guides/mount_network_drive.md 
 # This script is only tested with popos 20.04 in a VM. Thus, if you find an issue, report it to me.
 # Run this script as root, or sudo?(not sure will need testing), for now, use root user.
+# This script is only support ubuntu based system e.g. ubuntu, popos...
 # Version 0.1 alpha
 
-# Set vars
+# Set default variables
 LCDIR=server        # local directory
 USRID=1000          # user id
 RMIP='127.0.0.1'    # remote ip
@@ -16,6 +17,7 @@ RMPASSWD=password   # remote password
 
 # idea: user input var, auto gen command and added to fstab
 
+# check for root access.
 if [ $(whoami) != 'root' ]
 then
     echo "This script can only run under root!"
@@ -24,34 +26,63 @@ fi
 
 clear
 
-yes Y | apt-get install cifs-utils
+# install dependency.
+#yes Y | apt-get install cifs-utils
 
-#echo "Would you like your local mountpoint name to be" $LCDIR "?"
-#read -p '[ Yes / No ] : ' TOF_LCDIR
+# creating local folder for mounting.
 while true
 do
-	read -r -p "Would you like your local mountpoint name to be" $LCDIR "? [Yes / No ] " YN_LCDIR
-	case $YN_LCDIR in
-		[yY][eE][sS][yY])
-        echo "YES" # For testing
+    read -r -p "Would you like your mountpoint folder name to be $LCDIR ? [y/N] " YN_LCDIR
+    case $YN_LCDIR in
+        [yY]|[yY][eE][sS])
+        # if yes, break the loop.
         break 
         ;;
-        [nN][oO][nN])
-        echo "NO" # For testing
-        # ask user to input their naming and run the while again.
+        [nN]|[nN][oO])
+        # if no, ask user to input naming and run the while again.
         while true
         do
-        	read -r -p "Input your naming : " LCDIR
-        	read -r -p "Your naming is: " $LCDIR "Are you sure? [Yes / No ] " YN_LCDIR
-        	# more later.... is 6am.... god lord *damn*!!!
+            # check naming
+            while true
+            do
+                read -r -p "Input your naming : " LCDIR
+                if [[ "${LCDIR}"  = *[!A-Za-z0-9_-]* ]]
+                then
+                    # limit the use of special characters to save some brain cells.
+                    echo "Only [ A-Za-z0-9_- ] characters are allowed."
+                else
+                    # if the naming is legal, break the loop
+                    break
+                fi
+            done
+            # end check naming
+            read -r -p "Your naming is now: $LCDIR , Are you sure? [y/N] " YN_LCDIR
+            case $YN_LCDIR in
+                [yY]|[yY][eE][sS])
+                # break the loop.
+                break
+                ;;
+                # everything else, return for reentering.
+                *)
+                ;;
+            esac
+        done
         break
         ;;
-        *)
-        echo "Invalid input..."
+        * )
+        # in case of unexpected input.
+        echo $YN_LCDIR "is an invalid input..."
         ;;
     esac
+done
+
+# keep going ... later on
 
 
-uid=$( id -u )
 
-echo $uid
+# something for the future 
+#echo "ligel name to create: ${LCDIR// /_}"
+#echo "ligel name for fstab : ${LCDIR// /\040}"
+
+#uid=$( id -u )
+#echo $uid
