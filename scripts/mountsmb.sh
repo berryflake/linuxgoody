@@ -244,7 +244,6 @@ fi
 #echo $uid
 
 
-
 #!/bin/bash
 # check user id
 
