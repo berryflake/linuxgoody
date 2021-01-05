@@ -86,3 +86,17 @@ done
 
 #uid=$( id -u )
 #echo $uid
+
+
+
+#!/bin/bash
+# check user id
+
+#id -un # for username
+#id -u # for uid
+
+# ask do u know your username of the macshine
+# if yes prompt input
+# if not, ls all user on the system for them to lookup. or show them command to do so.
+
+
