@@ -220,7 +220,7 @@ else
     chmod 775 $USRDIR$USRNAME/$LCDIR
 fi
 
-# Print a temperoty mount command
+# Print a temporary test mount command
 clear
 echo ""
 echo "==========================================="
@@ -234,7 +234,7 @@ else
 	echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $USRDIR$USRNAME/$LCDIR"
 fi
 
-
+# MORE LATER!!!!
 
 # something for the future 
 #echo "ligel name to create: ${LCDIR// /_}"
