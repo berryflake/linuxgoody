@@ -11,7 +11,7 @@
 LCDIR=server        # local directory
 USRNAME=NA          # user name of the macshine
 USRDIR=/home/       # home directory path
-COS_USRDIR=/       # Custom user directory
+COS_USRDIR=/        # Custom user directory
 USRID=1000          # user id
 USRGID=1000         # user group id
 RMIP='0.0.0.0'      # remote ip
@@ -86,14 +86,14 @@ done
 clear
 while true
 do
-	# find your username and user id
-	awk -F: '{ print $1 , $3 , $4}' /etc/passwd
+    # find your username and user id
+    awk -F: '{ print $1 , $3 , $4}' /etc/passwd
 
-	echo ""
-	echo "==========================================="
-	echo "Find your username, UID, GID from the list."
-	echo "==========================================="
-	echo ""
+    echo ""
+    echo "==========================================="
+    echo "Find your username, UID, GID from the list."
+    echo "==========================================="
+    echo ""
     read -r -p "Input your username: " USRNAME
     read -r -p "Input your UID: " USRID
     read -r -p "Input your GID: " USRGID
@@ -115,10 +115,10 @@ do
         echo "Changing info"
         # find your username and user id
         ;;
-    	*)
+        *)
         # in case of unexpected input.
         echo $YN_USRINFO "is an invalid input..."
-    	;;
+        ;;
     esac
 done
 # End define username,id,group
@@ -171,12 +171,12 @@ done
 # Define remote setting
 while true
 do
-	clear
-	echo ""
-	echo "==========================================="
-	echo " Remote setting"
-	echo "==========================================="
-	echo ""
+    clear
+    echo ""
+    echo "==========================================="
+    echo " Remote setting"
+    echo "==========================================="
+    echo ""
     read -r -p "Your remote ip: " RMIP
     read -r -p "Your remote username: " RMUSR
     read -r -p "Your remote password: " RMPASSWD
@@ -200,10 +200,10 @@ do
         echo "Changing info"
         # find your username and user id
         ;;
-    	*)
+        *)
         # in case of unexpected input.
         echo $YN_USRINFO "is an invalid input..."
-    	;;
+        ;;
     esac
 done
 # End define remote setting
@@ -211,7 +211,7 @@ done
 # Make mountingpoint on user home directory
 if [ $COS_USRDIR != '/' ]
 then
-	mkdir $COS_USRDIR/$LCDIR
+    mkdir $COS_USRDIR/$LCDIR
     chown $USRNAME:$USRNAME $COS_USRDIR/$LCDIR
     chmod 775 $COS_USRDIR/$LCDIR
 else
@@ -220,7 +220,7 @@ else
     chmod 775 $USRDIR$USRNAME/$LCDIR
 fi
 
-# Print a temporary test mount command
+# Print a temperoty mount command
 clear
 echo ""
 echo "==========================================="
@@ -231,10 +231,10 @@ if [ $COS_USRDIR != '/' ]
 then
     echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $COS_USRDIR/$LCDIR"
 else
-	echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $USRDIR$USRNAME/$LCDIR"
+    echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $USRDIR$USRNAME/$LCDIR"
 fi
 
-# MORE LATER!!!!
+
 
 # something for the future 
 #echo "ligel name to create: ${LCDIR// /_}"
@@ -242,6 +242,7 @@ fi
 
 #uid=$( id -u )
 #echo $uid
+
 
 
 #!/bin/bash
