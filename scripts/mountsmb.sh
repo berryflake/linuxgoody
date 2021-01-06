@@ -9,9 +9,9 @@
 
 # Set default variables
 LCDIR=server        # local directory
-USRNAME=NA          # user name of the macshine
-USRDIR=/home/       # home directory path
-COS_USRDIR=/        # Custom user directory
+USRNAME=NA          # user name
+USRDIR=/home/       # home directory
+COS_USRDIR=/        # Custom mount directory
 USRID=1000          # user id
 USRGID=1000         # user group id
 RMIP='0.0.0.0'      # remote ip
