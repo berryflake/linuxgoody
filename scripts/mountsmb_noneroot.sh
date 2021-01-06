@@ -25,6 +25,7 @@ RMIP='0.0.0.0'      # remote ip
 RMDIR=/             # remote directory
 RMUSR=user          # remote username , might get deleted in the future
 RMPASSWD=password   # remote password , might get deleted in the future
+KEYFILE='.smbkey'   # credentials file mane
 
 # Install dependency.
 #yes Y | sudo apt-get install cifs-utils
