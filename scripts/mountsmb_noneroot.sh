@@ -26,10 +26,8 @@ RMDIR=/             # remote directory
 RMUSR=user          # remote username , might get deleted in the future
 RMPASSWD=password   # remote password , might get deleted in the future
 
-echo $USRDIR
-
-# Install dependency. this is not the one needed, just for testing.
-#yes Y | sudo apt-get install sysbench
+# Install dependency.
+#yes Y | sudo apt-get install cifs-utils
 # End install dependency
 
 # Get name for mounting folder.
