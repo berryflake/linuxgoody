@@ -6,6 +6,14 @@
 # No need to run this script as root.
 # Version 0.3 alpha
 
+# Check for root access.
+if [ $(whoami) == 'root' ]
+then
+    echo "This script cannot run as root!"
+    exit 1
+fi
+# End check for root access
+
 # Default variables
 LCDIR=server        # local directory
 USRNAME=$(id -un)   # user name of the macshine
