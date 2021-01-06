@@ -4,7 +4,7 @@
 # The guide github.com/berryflake/linuxgoody/guides/mount_network_drive.md
 # This script is only tested on ubuntu based system e.g. ubuntu, popos...
 # No need to run this script as root.
-# Version 0.3 alpha
+# Version 0.8 alpha
 
 # Check for root access.
 if [ $(whoami) == 'root' ]
@@ -79,7 +79,6 @@ done
 # End get name for mounting folder.
 
 # Define username,id,group
-clear
 while true
 do
     clear
@@ -106,10 +105,11 @@ do
             echo "==========================================="
             echo "Find your username, UID, GID from the list."
             echo "==========================================="
+            echo "Hit enter when you're done."
             echo ""
-            read -r -p "Input your username: " USRNAME
-            read -r -p "Input your UID: " USRID
-            read -r -p "Input your GID: " USRGID
+            read -r -p "1/3 - Input your username: " USRNAME
+            read -r -p "2/3 - Input your user id (UID): " USRID
+            read -r -p "3/3 - Input your user group id(GID): " USRGID
             ;;
         *)
             echo $YN_USRINFO "is an invalid input..."
@@ -179,19 +179,20 @@ do
     echo "==========================================="
     echo " Remote setting"
     echo "==========================================="
+    echo "Hit enter when you're done."
     echo ""
-    read -r -p "Your remote ip: " RMIP
-    read -r -p "Your remote username: " RMUSR
-    read -r -p "Your remote password: " RMPASSWD
-    read -r -p "Your remote mountpoint: " RMDIR
+    read -r -p "1/4 - Your server ip (ipv4): " RMIP
+    read -r -p "2/4 - Your server username: " RMUSR
+    read -r -p "3/4 - Your server password: " RMPASSWD
+    read -r -p "4/4 - Your server directory (Folder name): " RMDIR
     clear
-    echo "=========|Setting overview|========="
-    echo "Remote ip:" $RMIP
-    echo "Remote username: " $RMUSR
-    echo "Remote password: " $RMPASSWD
-    echo "Remote directory: " //$RMIP/$RMDIR
+    echo "=========|Setting Overview|========="
+    echo "Server ip:" $RMIP
+    echo "Server username: " $RMUSR
+    echo "Server password: " $RMPASSWD
+    echo "Server path in full: " //$RMIP/$RMDIR
     echo "===================================="
-    read -r -p "Confirm your info [y/N] " YN_USRINFO
+    read -r -p "Confirm your setting [y/N] " YN_USRINFO
     case $YN_USRINFO in
         [yY]|[yY][eE][sS])
         # if yes, break the loop.
@@ -223,19 +224,91 @@ else
 fi
 # End make mountingpoint on user home directory
 
-# Print a temperoty mount command
-clear
-echo ""
-echo "==========================================="
-echo " Testing setting"
-echo "==========================================="
-echo ""
-if [ $COS_USRDIR != '/' ]
-then
-    echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $COS_USRDIR/$LCDIR"
-else
-    echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $USRDIR/$LCDIR"
-fi
-# End print a temperoty mount command
-
-# add fastab soon... ? need sudo or root access
+# Asking if user if they want to make it mount on startup.
+while true
+do
+    clear
+    echo ""
+    echo "==================================="
+    echo " Make automount"
+    echo "==================================="
+    echo ""
+    echo "Do you want your network drive to be mounted during startup?"
+    echo ""
+    echo "If yes, the script will add a command to your fstab."
+    echo "Therefore mount it automatically during startup."
+    echo "Best for a static network, e.g. Tower PC, or laptop that stays at the same network."
+    echo ""
+    echo "If no, the script will generate a script which you need to run it to mount the network drive."
+    echo "This process needs to be done manually every time you boot up the system."
+    echo "Suitable for those who travel a lot between different networks."
+    echo ""
+    echo "==================================="
+    echo ""
+    read -r -p "Mount it automatically during startup? [y/N] " YN_AUTOMOUNT
+    case $YN_AUTOMOUNT in
+        [yY]|[yY][eE][sS])
+            # add to fstab
+            # Create credentials file
+            echo "username=$RMUSR" >> $USRDIR/$KEYFILE
+            echo "password=$RMPASSWD" >> $USRDIR/$KEYFILE
+            # This part reuiare root
+            # Change credentials - owndership, permission and move file to root home directory
+            sudo chown root:root $USRDIR/$KEYFILE
+            sudo chmod 700 $USRDIR/$KEYFILE
+            sudo mv $USRDIR/$KEYFILE /root/
+            clear
+            echo ""
+            echo "===================================================="
+            echo " Credentials is created"
+            echo "===================================================="
+            echo ""
+            sudo cat /root/$KEYFILE
+            echo ""
+            echo "===================================================="
+            echo "Your credentials file is stored at /root/$KEYFILE "
+            echo "===================================================="
+            # End create credentials file
+            # Backup fstab
+            sudo cp /etc/fstab /etc/fstab.bak
+            # writing to fstab
+            echo "# Adding SMB Mount during start" | sudo tee -a /etc/fstab > /dev/null
+            if [ $COS_USRDIR != '/' ]
+            then
+                echo "//$RMIP/$RMDIR $COS_USRDIR/$LCDIR cifs credentials=/root/$KEYFILE,uid=$USRID 0 0" | sudo tee -a /etc/fstab > /dev/null
+            else
+                echo "//$RMIP/$RMDIR $USRDIR/$LCDIR cifs credentials=/root/$KEYFILE,uid=$USRID 0 0" | sudo tee -a /etc/fstab > /dev/null
+            fi
+            # End writing to fstab
+            echo "A backup is created for fstab at /etc/fstab.bak"
+            echo "Too test it, run : mount -a"
+            break
+            ;;
+        [nN]|[nN][oO])
+            # Generate script, for the user to run when they please
+            clear
+            echo ""
+            echo "==========================================="
+            echo " Script generated"
+            echo "==========================================="
+            echo "This script allows you to mount to your SMB Network drive, invalid when next boot."
+            echo ""
+            # Generating
+            if [ $COS_USRDIR != '/' ]
+            then
+                echo "mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $COS_USRDIR/$LCDIR" >> mapdrive.sh
+            else
+                echo "mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $USRDIR/$LCDIR" >> mapdrive.sh
+            fi
+            # Generated
+            echo "The script is stored on your home directory $USRDIR called mapdrive.sh"
+            echo "Run it with sudo privilege."
+            # End generate script
+            break
+            ;;
+        *)
+            echo $YN_AUTOMOUNT "is an invalid input..."
+            sleep 1
+            ;;
+    esac
+done
