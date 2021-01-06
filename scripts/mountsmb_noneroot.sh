@@ -35,6 +35,7 @@ yes Y | sudo apt-get install cifs-utils
 # Get name for mounting folder.
 while true
 do
+	clear
     read -r -p "Would you like your mountpoint name $LCDIR ? [y/N] " YN_LCDIR
     case $YN_LCDIR in
         [yY]|[yY][eE][sS])
