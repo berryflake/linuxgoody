@@ -1,10 +1,10 @@
 #!/bin/bash
 # Mount smb network drive
 # This script is the automated version of my guide.
-# The guide https://github.com/berryflake/linuxgoody/blob/main/guides/mount_network_drive.md
-# Run this script as root, or sudo?(not sure will need testing), for now, use root user.
+# The guide github.com/berryflake/linuxgoody/guides/mount_network_drive.md
 # This script is only tested ubuntu based system e.g. ubuntu, popos...
-# Version 0.1 alpha
+# Run this script as root.
+# Version 0.3 alpha
 
 # Set default variables
 LCDIR=server        # local directory
@@ -110,7 +110,7 @@ do
         break 
         ;;
         [nN]|[nN][oO])
-        # if no, ask user to input naming again.
+        # if no, ask user to reinput.
         echo "Changing info"
         ;;
         *)
@@ -133,19 +133,19 @@ do
         break 
         ;;
         [nN]|[nN][oO])
-        # if no, ask user to input naming and run the while again.
+        # if no, ask user to input home directory manually.
         while true
             do
                 read -r -p "Edite your home directory manually: " COS_USRDIR
                 if [[ "${COS_USRDIR}"  = *[!A-Za-z0-9/_-]* ]]
                 then
                     # limit the use of special characters to save some brain cells.
-                    echo "ERROR: Only [ A-Za-z0-9/_- ] characters are allowed."
+                    echo "ERROR: Only [ A-Z a-z 0-9 /_- ] characters are allowed."
                     echo "NOTE: Do not use ~/ to shorten your path, use the full path."
                 else
                     case $COS_USRDIR in
                         */)
-                        echo "ERROR: / is NOT at the end, delete it for the script to work."
+                        echo "ERROR: / should not be at the end."
                         ;;
                         *)
                         echo $COS_USRDIR # remove later, only for testing.
@@ -183,20 +183,19 @@ do
     echo "=========|Setting overview|========="
     echo "Remote ip:" $RMIP
     echo "Remote username: " $RMUSR
-    echo "Remote password:  " $RMPASSWD
-    echo "Remote directory:  " //$RMIP/$RMDIR
+    echo "Remote password: " $RMPASSWD
+    echo "Remote directory: " //$RMIP/$RMDIR
     echo "===================================="
     read -r -p "Confirm your info [y/N] " YN_USRINFO
     case $YN_USRINFO in
         [yY]|[yY][eE][sS])
         # if yes, break the loop.
-        echo "info is accepted."
+        echo "info saved."
         break 
         ;;
         [nN]|[nN][oO])
-        # if no, ask user to input naming and run the while again.
+        # if no, ask user to reinput.
         echo "Changing info"
-        # find your username and user id
         ;;
         *)
         # in case of unexpected input.
@@ -217,6 +216,7 @@ else
     chown $USRNAME:$USRNAME $USRDIR$USRNAME/$LCDIR
     chmod 775 $USRDIR$USRNAME/$LCDIR
 fi
+# End make mountingpoint on user home directory
 
 # Print a temperoty mount command
 clear
@@ -231,7 +231,7 @@ then
 else
     echo "sudo mount -t cifs -o username=$RMUSR,password=$RMPASSWD,uid=$USRID //$RMIP/$RMDIR $USRDIR$USRNAME/$LCDIR"
 fi
-
+# End print a temperoty mount command
 
 
 # something for the future 
