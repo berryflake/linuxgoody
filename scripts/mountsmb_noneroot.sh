@@ -6,12 +6,6 @@
 # No need to run this script as root.
 # Version 0.8 alpha
 
-# Check for root access.
-if [ $(whoami) == 'root' ]
-then
-    echo "This script cannot run as root!"
-    exit 1
-fi
 # End check for root access
 
 # Default variables
@@ -27,8 +21,15 @@ RMUSR=user          # remote username , might get deleted in the future
 RMPASSWD=password   # remote password , might get deleted in the future
 KEYFILE='.smbkey'   # credentials file mane
 
+# Check for root access.
+if [ $(whoami) == 'root' ]
+then
+    echo "This script cannot run as root!"
+    exit 1
+fi
+
 # Install dependency.
-#yes Y | sudo apt-get install cifs-utils
+yes Y | sudo apt-get install cifs-utils
 # End install dependency
 
 # Get name for mounting folder.
