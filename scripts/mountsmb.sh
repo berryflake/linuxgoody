@@ -37,6 +37,7 @@ yes Y | apt-get install cifs-utils
 # Creating local folder for mounting.
 while true
 do
+	clear
     read -r -p "Would you like your mountpoint folder name to be $LCDIR ? [y/N] " YN_LCDIR
     case $YN_LCDIR in
         [yY]|[yY][eE][sS])
